@@ -26,6 +26,7 @@ android {
 dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.datastore.preferences)
+    implementation(libs.kotlinx.serialization.json)
     implementation(project(":core:model"))
     testImplementation(libs.mockk)
 

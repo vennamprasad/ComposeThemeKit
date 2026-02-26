@@ -1,6 +1,7 @@
 package prasad.vennam.model
 
 import androidx.compose.runtime.Immutable
+import kotlinx.serialization.Serializable
 
 /**
  * Central configuration object for the AuraComposeThemeKit engine.
@@ -27,6 +28,7 @@ import androidx.compose.runtime.Immutable
  * @property iconStyleId The aesthetic style of internal UI icons.
  */
 @Immutable
+@Serializable
 data class ThemeConfig(
     val useDynamicColor: Boolean = true,
     val isDarkTheme: Boolean = false,

@@ -11,6 +11,7 @@ import dagger.hilt.components.SingletonComponent
 import prasad.vennam.datastore.dataStore
 import javax.inject.Named
 import javax.inject.Singleton
+import prasad.vennam.model.ThemeConfig
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -19,7 +20,7 @@ object ThemeKitDataStoreModule {
     @Provides
     @Singleton
     @Named("ThemeDataStore")
-    fun provideThemeDataStore(@ApplicationContext context: Context): DataStore<Preferences> {
+    fun provideThemeDataStore(@ApplicationContext context: Context): DataStore<ThemeConfig> {
         return context.dataStore
     }
 }
