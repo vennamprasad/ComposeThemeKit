@@ -25,6 +25,3 @@ build_error.txt
 
 # OS File
 .DS_Store
-
-# Output artifacts (videos, recordings, etc.)
-output/

@@ -1,9 +1,26 @@
 # 🎨 AuraComposeThemeKit: Modern Theming as a Service
-[![](https://jitpack.io/v/vennamprasad/AuraComposeThemeKit.svg)](https://jitpack.io/#vennamprasad/AuraComposeThemeKit)
+[![](https://jitpack.io/v/vennamprasad/ComposeThemeKit.svg)](https://jitpack.io/#vennamprasad/ComposeThemeKit)
 ![Build Version](https://img.shields.io/badge/version-1.0.0-blue.svg)
 ![Jetpack Compose](https://img.shields.io/badge/Jetpack-Compose-4285F4.svg?logo=jetpackcompose)
 
 **AuraComposeThemeKit** is a professional-grade, modular theming engine for Android Jetpack Compose. Unlike traditional static themes, AuraComposeThemeKit acts as a pluggable service that gives you total control over **Colors**, **Typography**, **Geometry**, **Haptics**, and **Animations** with zero boilerplate.
+
+## 📸 Previews
+
+<div align="center">
+  <img src="output/home.png" width="30%" />
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  <img src="output/settings.png" width="30%" />
+</div>
+
+<br>
+
+<div align="center">
+  <b>Watch the Demo Video:</b><br>
+  <a href="https://github.com/vennamprasad/ComposeThemeKit/raw/main/output/video.mp4">
+    <img src="https://img.shields.io/badge/Watch-Demo_Video-FF0000?style=for-the-badge&logo=youtube" alt="Demo Video" />
+  </a>
+</div>
 
 ---
 
