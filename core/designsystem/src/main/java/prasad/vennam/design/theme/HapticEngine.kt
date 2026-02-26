@@ -6,16 +6,26 @@ import android.os.VibrationEffect
 import android.os.Vibrator
 import android.os.VibratorManager
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.platform.LocalContext
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.channels.BufferOverflow
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.consumeAsFlow
+import kotlinx.coroutines.launch
 import prasad.vennam.model.ThemeConfig
 
 /**
  * A utility class to trigger haptic feedback based on the user's selected intensity from ThemeConfig.
+ * Uses a Coroutine Channel to debounce rapid successive clicks and prevent hardware vibrator spam.
  */
 class HapticEngine(
-    private val context: Context,
-    private val intensityId: String
+    context: Context,
+    private val intensityId: String,
+    private val coroutineScope: CoroutineScope
 ) {
     private val vibrator: Vibrator? = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
         val vibratorManager = context.getSystemService(Context.VIBRATOR_MANAGER_SERVICE) as VibratorManager
@@ -25,20 +35,31 @@ class HapticEngine(
         context.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
     }
 
-    private var lastVibrationTime = 0L
-    private val vibrationCooldownMs = 40L // Prevent vibrator spam under 40ms
+    private val clickChannel = Channel<Unit>(
+        capacity = Channel.CONFLATED,
+        onBufferOverflow = BufferOverflow.DROP_OLDEST
+    )
+
+    init {
+        coroutineScope.launch {
+            clickChannel.consumeAsFlow().collect {
+                triggerVibration()
+                // Drop any subsequent requests that arrive during this 50ms cooldown window
+                delay(50L)
+            }
+        }
+    }
 
     /**
      * Trigger a generic click haptic effect, scaled by the user's intensity preference.
-     * Contains built-in debouncing to prevent spamming the hardware vibrator.
+     * Safe to call rapidly from Composable Event Handlers without blocking the main thread.
      */
     fun performClick() {
         if (intensityId == "none") return
-        
-        val currentTime = System.currentTimeMillis()
-        if (currentTime - lastVibrationTime < vibrationCooldownMs) return
-        lastVibrationTime = currentTime
+        clickChannel.trySend(Unit)
+    }
 
+    private fun triggerVibration() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             val effect = when (intensityId) {
                 "light" -> VibrationEffect.createPredefined(VibrationEffect.EFFECT_TICK)
@@ -60,7 +81,9 @@ class HapticEngine(
 @Composable
 fun rememberHapticEngine(themeConfig: ThemeConfig): HapticEngine {
     val context = LocalContext.current
-    return remember(context, themeConfig.hapticIntensityId) {
-        HapticEngine(context, themeConfig.hapticIntensityId)
+    val coroutineScope = rememberCoroutineScope()
+    
+    return remember(context, themeConfig.hapticIntensityId, coroutineScope) {
+        HapticEngine(context, themeConfig.hapticIntensityId, coroutineScope)
     }
 }
