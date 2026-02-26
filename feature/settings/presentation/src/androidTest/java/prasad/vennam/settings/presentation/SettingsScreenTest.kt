@@ -13,7 +13,7 @@ import io.mockk.verify
 import kotlinx.coroutines.flow.MutableStateFlow
 import org.junit.Rule
 import org.junit.Test
-import prasad.vennam.design.theme.MyApplicationTheme
+import prasad.vennam.design.theme.ThemeKitTheme
 import prasad.vennam.model.ThemeConfig
 
 class SettingsScreenTest {
@@ -29,7 +29,7 @@ class SettingsScreenTest {
         every { viewModel.themeConfig } returns themeConfigFlow
 
         composeTestRule.setContent {
-            MyApplicationTheme(themeConfig = themeConfigFlow.value) {
+            ThemeKitTheme(themeConfig = themeConfigFlow.value) {
                 SettingsScreen(viewModel = viewModel)
             }
         }
@@ -56,7 +56,7 @@ class SettingsScreenTest {
         every { viewModel.themeConfig } returns themeConfigFlow
 
         composeTestRule.setContent {
-            MyApplicationTheme(themeConfig = themeConfigFlow.value) {
+            ThemeKitTheme(themeConfig = themeConfigFlow.value) {
                 SettingsScreen(viewModel = viewModel)
             }
         }
@@ -69,7 +69,7 @@ class SettingsScreenTest {
         every { viewModel.themeConfig } returns themeConfigFlow
 
         composeTestRule.setContent {
-            MyApplicationTheme(themeConfig = themeConfigFlow.value) {
+            ThemeKitTheme(themeConfig = themeConfigFlow.value) {
                 SettingsScreen(viewModel = viewModel)
             }
         }
@@ -96,7 +96,7 @@ class SettingsScreenTest {
         every { viewModel.themeConfig } returns MutableStateFlow(config)
 
         composeTestRule.setContent {
-            MyApplicationTheme(themeConfig = config) {
+            ThemeKitTheme(themeConfig = config) {
                 SettingsScreen(viewModel = viewModel)
             }
         }
@@ -112,7 +112,7 @@ class SettingsScreenTest {
         every { viewModel.themeConfig } returns themeConfigFlow
 
         composeTestRule.setContent {
-            MyApplicationTheme(themeConfig = themeConfigFlow.value) {
+            ThemeKitTheme(themeConfig = themeConfigFlow.value) {
                 SettingsScreen(viewModel = viewModel)
             }
         }
@@ -134,7 +134,7 @@ class SettingsScreenTest {
          every { viewModel.themeConfig } returns themeConfigFlow
 
         composeTestRule.setContent {
-            MyApplicationTheme(themeConfig = themeConfigFlow.value) {
+            ThemeKitTheme(themeConfig = themeConfigFlow.value) {
                 SettingsScreen(viewModel = viewModel)
             }
         }
@@ -148,7 +148,7 @@ class SettingsScreenTest {
          every { viewModel.themeConfig } returns themeConfigFlow
 
         composeTestRule.setContent {
-            MyApplicationTheme(themeConfig = themeConfigFlow.value) {
+            ThemeKitTheme(themeConfig = themeConfigFlow.value) {
                 SettingsScreen(viewModel = viewModel)
             }
         }

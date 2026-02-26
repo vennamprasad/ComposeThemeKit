@@ -10,16 +10,17 @@ import javax.inject.Singleton
 
 @Singleton
 class AppIconRepositoryImpl @Inject constructor(
-    private val context: Context
+    private val context: Context,
+    private val themeRegistry: ThemeRegistry
 ) : AppIconRepository {
     override fun setAppIconId(id: String) {
         val packageManager = context.packageManager
         val packageName = context.packageName
         
-        val targetIcon = ThemeRegistry.appIcons.find { it.id == id } ?: return
+        val targetIcon = themeRegistry.appIcons.find { it.id == id } ?: return
 
         // Disable all other icons
-        ThemeRegistry.appIcons.forEach { appIcon ->
+        themeRegistry.appIcons.forEach { appIcon ->
             if (appIcon.id != targetIcon.id) {
                 packageManager.setComponentEnabledSetting(
                     ComponentName(packageName, "$packageName.${appIcon.aliasName}"),

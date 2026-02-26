@@ -397,7 +397,7 @@ fun StatusPill(
 @prasad.vennam.design.theme.ThemeKitPreview
 @Composable
 private fun HomeFeedScreenPreview() {
-    prasad.vennam.design.theme.MyApplicationTheme {
+    prasad.vennam.design.theme.ThemeKitTheme {
         HomeFeedScreen()
     }
 }

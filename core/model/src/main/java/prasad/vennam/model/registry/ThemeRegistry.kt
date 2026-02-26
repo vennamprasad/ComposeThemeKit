@@ -22,7 +22,7 @@ import prasad.vennam.model.ThemeConfig
  * ThemeRegistry.colors.add(ThemeColor(id = "brand", name = "My Brand", colorValue = 0xFF...))
  * ```
  */
-object ThemeRegistry {
+class ThemeRegistry {
     /** Registered font families available for selection. */
     val fonts = mutableListOf<ThemeFont>()
 
@@ -47,14 +47,12 @@ object ThemeRegistry {
     /** Curated theme profiles that apply multiple settings at once. */
     val profiles = mutableListOf<ThemeProfile>()
 
-    fun registerDefaults() {
-        fonts.clear()
+    init {
         fonts.add(ThemeFont("default", "System Default", isSystemDefault = true))
         fonts.add(ThemeFont("poppins", "Poppins"))
         fonts.add(ThemeFont("nunito", "Nunito"))
         fonts.add(ThemeFont("raleway", "Raleway"))
 
-        colors.clear()
         colors.add(ThemeColor("default", "Dynamic / Wallpaper", null))
         colors.add(ThemeColor("sapphire", "Sapphire Blue", 0xFF0F52BA))
         colors.add(ThemeColor("emerald", "Emerald Green", 0xFF50C878))
@@ -69,34 +67,28 @@ object ThemeRegistry {
         colors.add(ThemeColor("forest_green", "Forest Green", 0xFF1B4D3E))
         colors.add(ThemeColor("retro_amber", "Retro Amber", 0xFFFFBF00))
 
-        iconStyles.clear()
         iconStyles.add(ThemeIconStyle("rounded", "Rounded"))
         iconStyles.add(ThemeIconStyle("filled", "Filled"))
         iconStyles.add(ThemeIconStyle("outlined", "Outlined"))
         iconStyles.add(ThemeIconStyle("sharp", "Sharp"))
         
-        appIcons.clear()
         appIcons.add(ThemeAppIcon("default", "Default", "MainActivityDefault"))
         appIcons.add(ThemeAppIcon("dark", "Dark", "MainActivityDark"))
         
-        uiStyles.clear()
         uiStyles.add(ThemeUiStyle("rounded", "Rounded"))
         uiStyles.add(ThemeUiStyle("square", "Square"))
         uiStyles.add(ThemeUiStyle("extra_rounded", "Extra Rounded"))
         
-        hapticIntensities.clear()
         hapticIntensities.add(ThemeHapticIntensity("none", "None"))
         hapticIntensities.add(ThemeHapticIntensity("light", "Light"))
         hapticIntensities.add(ThemeHapticIntensity("medium", "Medium"))
         hapticIntensities.add(ThemeHapticIntensity("heavy", "Heavy"))
         
-        elevationStyles.clear()
         elevationStyles.add(ThemeElevationStyle("flat", "Flat"))
         elevationStyles.add(ThemeElevationStyle("material", "Material"))
         elevationStyles.add(ThemeElevationStyle("material", "Material"))
         elevationStyles.add(ThemeElevationStyle("high_contrast", "High Contrast"))
 
-        profiles.clear()
         profiles.add(
             ThemeProfile(
                 id = "sunset_orange",

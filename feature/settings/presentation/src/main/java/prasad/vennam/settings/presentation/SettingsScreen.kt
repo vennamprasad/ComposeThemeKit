@@ -35,11 +35,12 @@ import prasad.vennam.settings.presentation.components.ThemePreviewCard
 @Composable
 fun SettingsScreen(
     viewModel: SettingsViewModel = hiltViewModel(),
-    options: ThemeOptions = ThemeOptions(),
+    options: ThemeOptions? = null,
     modifier: Modifier = Modifier
 ) {
     val themeConfig by viewModel.themeConfig.collectAsState()
     val dimensions = LocalDimensions.current
+    val actualOptions = options ?: rememberThemeOptions()
 
     Scaffold(
         modifier = modifier,
@@ -66,7 +67,7 @@ fun SettingsScreen(
         ) {
             themeConfig?.let { config ->
                 ThemeSettingsSection(
-                    config = config, viewModel = viewModel, options = options
+                    config = config, viewModel = viewModel, options = actualOptions
                 )
             }
             Spacer(modifier = Modifier.height(dimensions.spacing.extraLarge))

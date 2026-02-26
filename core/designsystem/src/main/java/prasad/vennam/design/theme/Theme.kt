@@ -37,7 +37,8 @@ private val COLOR_SURFACE_VARIANT_HIGH_CONTRAST_LIGHT = Color(0xFFEDEDED)
 private val COLOR_PRIMARY_CONTAINER_HIGH_CONTRAST_LIGHT = Color(0xFFE0E0E0)
 
 @Composable
-fun MyApplicationTheme(
+fun ThemeKitTheme(
+    themeRegistry: ThemeRegistry = ThemeRegistry(),
     themeConfig: ThemeConfig = ThemeConfig(),
     colorScheme: ColorScheme? = null,
     typography: Typography? = null,
@@ -47,9 +48,9 @@ fun MyApplicationTheme(
     val context = LocalContext.current
     val view = LocalView.current
 
-    val appColorScheme = colorScheme ?: getAppColorScheme(themeConfig, context)
+    val appColorScheme = colorScheme ?: getAppColorScheme(themeConfig, context, themeRegistry)
     val appShapes = shapes ?: getAppShapes(themeConfig)
-    val appTypography = typography ?: getAppTypography(themeConfig, context.assets)
+    val appTypography = typography ?: getAppTypography(themeConfig, context.assets, themeRegistry)
     val dimensions = getAppDimensions(themeConfig)
     val elevations = getAppElevations(themeConfig)
     val icons = getIcons(themeConfig.iconStyleId)
@@ -61,6 +62,7 @@ fun MyApplicationTheme(
     ConfigureStatusBar(view, appColorScheme, themeConfig.isDarkTheme)
 
     CompositionLocalProvider(
+        LocalThemeRegistry provides themeRegistry,
         LocalDimensions provides dimensions,
         LocalMotionDurationScale provides themeConfig.animationScale,
         LocalElevations provides elevations,
@@ -89,9 +91,9 @@ private fun ConfigureStatusBar(view: View, colorScheme: ColorScheme, isDarkTheme
     }
 }
 
-private fun getAppColorScheme(themeConfig: ThemeConfig, context: Context): ColorScheme {
+private fun getAppColorScheme(themeConfig: ThemeConfig, context: Context, themeRegistry: ThemeRegistry): ColorScheme {
     val brandColorId = themeConfig.brandColorId
-    val brandColorConfig = ThemeRegistry.colors.find { it.id == brandColorId }
+    val brandColorConfig = themeRegistry.colors.find { it.id == brandColorId }
     val brandColor = brandColorConfig?.colorValue
 
     var colorScheme = when {
@@ -181,8 +183,8 @@ private fun getAppShapes(themeConfig: ThemeConfig): Shapes {
     )
 }
 
-private fun getAppTypography(themeConfig: ThemeConfig, assetManager: AssetManager): Typography {
-    val baseTypography = getTypography(themeConfig.fontFamilyId, assetManager)
+private fun getAppTypography(themeConfig: ThemeConfig, assetManager: AssetManager, themeRegistry: ThemeRegistry): Typography {
+    val baseTypography = getTypography(themeConfig.fontFamilyId, assetManager, themeRegistry)
     val scale = themeConfig.styleTextScale
     return baseTypography.copy(
         bodyLarge = baseTypography.bodyLarge.copy(fontSize = baseTypography.bodyLarge.fontSize * scale),
@@ -253,4 +255,7 @@ val LocalMotionDurationScale = staticCompositionLocalOf { 1f }
 val LocalElevations = staticCompositionLocalOf { Elevations() }
 val LocalHapticEngine = staticCompositionLocalOf<HapticEngine> { 
     error("No haptic engine provided.") 
+}
+val LocalThemeRegistry = staticCompositionLocalOf<ThemeRegistry> {
+    error("No ThemeRegistry provided. Make sure your UI is wrapped in ThemeKitTheme().")
 }

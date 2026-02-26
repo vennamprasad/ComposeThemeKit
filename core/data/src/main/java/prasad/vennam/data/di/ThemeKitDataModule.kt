@@ -11,6 +11,7 @@ import prasad.vennam.data.AppIconRepositoryImpl
 import prasad.vennam.data.ThemeRepositoryImpl
 import prasad.vennam.domain.AppIconRepository
 import prasad.vennam.domain.ThemeRepository
+import prasad.vennam.model.registry.ThemeRegistry
 import javax.inject.Singleton
 
 @Module
@@ -26,10 +27,17 @@ abstract class ThemeKitDataModule {
     companion object {
         @Provides
         @Singleton
+        fun provideThemeRegistry(): ThemeRegistry {
+            return ThemeRegistry()
+        }
+
+        @Provides
+        @Singleton
         fun provideAppIconRepository(
-            @ApplicationContext context: Context
+            @ApplicationContext context: Context,
+            themeRegistry: ThemeRegistry
         ): AppIconRepository {
-            return AppIconRepositoryImpl(context)
+            return AppIconRepositoryImpl(context, themeRegistry)
         }
     }
 }

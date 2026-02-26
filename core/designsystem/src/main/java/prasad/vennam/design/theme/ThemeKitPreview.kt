@@ -12,7 +12,7 @@ import androidx.compose.ui.tooling.preview.Preview
  * @ThemeKitPreview
  * @Composable
  * fun MyComponentPreview() {
- *     MyApplicationTheme { MyComponent() }
+ *     ThemeKitTheme { MyComponent() }
  * }
  * ```
  */

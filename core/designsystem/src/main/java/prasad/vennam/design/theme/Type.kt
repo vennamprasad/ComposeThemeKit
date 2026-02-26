@@ -9,8 +9,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import prasad.vennam.model.registry.ThemeRegistry
 
-fun getFontFamily(fontFamilyId: String, assetManager: AssetManager): FontFamily {
-    val fontConfig = ThemeRegistry.fonts.find { it.id == fontFamilyId }
+fun getFontFamily(fontFamilyId: String, assetManager: AssetManager, themeRegistry: ThemeRegistry): FontFamily {
+    val fontConfig = themeRegistry.fonts.find { it.id == fontFamilyId }
     
     val fontRes = fontConfig?.fontRes
     // Support newly injected resource-based fonts
@@ -39,8 +39,8 @@ fun getFontFamily(fontFamilyId: String, assetManager: AssetManager): FontFamily 
     }
 }
 
-fun getTypography(fontFamilyId: String, assetManager: AssetManager, scale: Float = 1.0f): Typography {
-    val fontFamily = getFontFamily(fontFamilyId, assetManager)
+fun getTypography(fontFamilyId: String, assetManager: AssetManager, themeRegistry: ThemeRegistry, scale: Float = 1.0f): Typography {
+    val fontFamily = getFontFamily(fontFamilyId, assetManager, themeRegistry)
     
     return Typography(
         displayLarge = TextStyle(
