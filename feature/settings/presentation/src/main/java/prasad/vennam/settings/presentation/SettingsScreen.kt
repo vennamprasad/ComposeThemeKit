@@ -34,9 +34,9 @@ import prasad.vennam.settings.presentation.components.ThemePreviewCard
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SettingsScreen(
+    modifier: Modifier = Modifier,
     viewModel: SettingsViewModel = hiltViewModel(),
     options: ThemeOptions? = null,
-    modifier: Modifier = Modifier
 ) {
     val themeConfig by viewModel.themeConfig.collectAsState()
     val dimensions = LocalDimensions.current
