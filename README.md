@@ -1,6 +1,6 @@
 # 🎨 AuraComposeThemeKit: Modern Theming as a Service
 [![](https://jitpack.io/v/vennamprasad/ComposeThemeKit.svg)](https://jitpack.io/#vennamprasad/ComposeThemeKit)
-![Build Version](https://img.shields.io/badge/version-1.0.0-blue.svg)
+![Build Version](https://img.shields.io/badge/version-1.0.4-blue.svg)
 ![Jetpack Compose](https://img.shields.io/badge/Jetpack-Compose-4285F4.svg?logo=jetpackcompose)
 
 **AuraComposeThemeKit** is a professional-grade, modular theming engine for Android Jetpack Compose. Unlike traditional static themes, AuraComposeThemeKit acts as a pluggable service that gives you total control over **Colors**, **Typography**, **Geometry**, **Haptics**, and **Animations** with zero boilerplate.
@@ -54,15 +54,17 @@ dependencyResolutionManagement {
 
 ```kotlin
 dependencies {
-    // The Whole Kit: Includes Design System, Models, and Settings UI
-    implementation("com.github.vennamprasad:ComposeThemeKit:1.0.0")
+    // Core Engine and UI Components
+    implementation("com.github.vennamprasad.ComposeThemeKit:ComposeThemeKit-core-designsystem:1.0.4")
+    
+    // The pre-built Settings UI Screen
+    implementation("com.github.vennamprasad.ComposeThemeKit:ComposeThemeKit-feature-settings-presentation:1.0.4")
 }
 ```
 
 > [!TIP]
-> **Modular Installation**: If you only need the specific building blocks without the pre-built Settings UI:
-> - **Core UI & Engine**: `implementation("com.github.vennamprasad:ComposeThemeKit-core-designsystem:1.0.0")`
-> - **Models Only**: `implementation("com.github.vennamprasad:ComposeThemeKit-core-model:1.0.0")`
+> **Models Only**: If you only need the data models and registry without the UI components:
+> `implementation("com.github.vennamprasad.ComposeThemeKit:ComposeThemeKit-core-model:1.0.4")`
 
 ---
 
