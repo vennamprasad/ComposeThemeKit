@@ -1,5 +1,7 @@
 package prasad.vennam.model
 
+import androidx.compose.runtime.Immutable
+
 /**
  * A curated bundle of theme configurations that can be applied all at once.
  *
@@ -10,6 +12,7 @@ package prasad.vennam.model
  * @property name Human-readable name shown in the UI.
  * @property config The [ThemeConfig] mapping applied when this profile is active.
  */
+@Immutable
 data class ThemeProfile(
     val id: String,
     val name: String,

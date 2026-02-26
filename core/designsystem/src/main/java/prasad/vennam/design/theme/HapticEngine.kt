@@ -25,11 +25,19 @@ class HapticEngine(
         context.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
     }
 
+    private var lastVibrationTime = 0L
+    private val vibrationCooldownMs = 40L // Prevent vibrator spam under 40ms
+
     /**
      * Trigger a generic click haptic effect, scaled by the user's intensity preference.
+     * Contains built-in debouncing to prevent spamming the hardware vibrator.
      */
     fun performClick() {
         if (intensityId == "none") return
+        
+        val currentTime = System.currentTimeMillis()
+        if (currentTime - lastVibrationTime < vibrationCooldownMs) return
+        lastVibrationTime = currentTime
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             val effect = when (intensityId) {

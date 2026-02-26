@@ -1,5 +1,7 @@
 package prasad.vennam.model
 
+import androidx.compose.runtime.Immutable
+
 /**
  * Central configuration object for the AuraComposeThemeKit engine.
  *
@@ -24,6 +26,7 @@ package prasad.vennam.model
  * @property appIconId The ID of the home screen icon variant.
  * @property iconStyleId The aesthetic style of internal UI icons.
  */
+@Immutable
 data class ThemeConfig(
     val useDynamicColor: Boolean = true,
     val isDarkTheme: Boolean = false,
