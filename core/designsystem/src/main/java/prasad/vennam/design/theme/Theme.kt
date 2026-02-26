@@ -15,6 +15,7 @@ import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.geometry.Size
@@ -48,16 +49,56 @@ fun ThemeKitTheme(
     val context = LocalContext.current
     val view = LocalView.current
 
-    val appColorScheme = colorScheme ?: getAppColorScheme(themeConfig, context, themeRegistry)
-    val appShapes = shapes ?: getAppShapes(themeConfig)
-    val appTypography = typography ?: getAppTypography(themeConfig, context.assets, themeRegistry)
-    val dimensions = getAppDimensions(themeConfig)
-    val elevations = getAppElevations(themeConfig)
-    val icons = getIcons(themeConfig.iconStyleId)
+    val appColorScheme = colorScheme ?: remember(
+        themeConfig.brandColorId,
+        themeConfig.isDarkTheme,
+        themeConfig.useDynamicColor,
+        themeConfig.isTrueBlack,
+        themeConfig.isHighContrast,
+        themeRegistry
+    ) {
+        getAppColorScheme(themeConfig, context, themeRegistry)
+    }
+
+    val appShapes = shapes ?: remember(
+        themeConfig.uiStyleId,
+        themeConfig.styleShapeScale
+    ) {
+        getAppShapes(themeConfig)
+    }
+
+    val appTypography = typography ?: remember(
+        themeConfig.fontFamilyId,
+        themeConfig.styleTextScale,
+        themeRegistry
+    ) {
+        getAppTypography(themeConfig, context.assets, themeRegistry)
+    }
+
+    val dimensions = remember(
+        themeConfig.isCompactMode,
+        themeConfig.styleSpacingScale
+    ) {
+        getAppDimensions(themeConfig)
+    }
+
+    val elevations = remember(themeConfig.elevationStyleId) {
+        getAppElevations(themeConfig)
+    }
+
+    val icons = remember(themeConfig.iconStyleId) {
+        getIcons(themeConfig.iconStyleId)
+    }
 
     val hapticEngine = rememberHapticEngine(themeConfig)
-    val semanticColors = getSemanticColors(themeConfig)
-    val animations = ThemeAnimation(themeConfig.animationScale)
+    
+    val semanticColors = remember(themeConfig.brandColorId, themeConfig.isDarkTheme, themeConfig.useDynamicColor) {
+        getSemanticColors(themeConfig)
+    }
+    
+    val animations = remember(themeConfig.animationScale) {
+        ThemeAnimation(themeConfig.animationScale)
+    }
 
     ConfigureStatusBar(view, appColorScheme, themeConfig.isDarkTheme)
 
@@ -96,15 +137,32 @@ private fun getAppColorScheme(themeConfig: ThemeConfig, context: Context, themeR
     val brandColorConfig = themeRegistry.colors.find { it.id == brandColorId }
     val brandColor = brandColorConfig?.colorValue
 
-    var colorScheme = when {
-        brandColor != null -> getBrandColorScheme(brandColor, themeConfig.isDarkTheme)
-        themeConfig.useDynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
-            if (themeConfig.isDarkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
-        }
-        themeConfig.isDarkTheme -> DarkColorScheme
-        else -> LightColorScheme
+    // 1. Establish the base palette (Dynamic OS Colors or Static Defaults)
+    val baseScheme = if (themeConfig.useDynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+        if (themeConfig.isDarkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
+    } else {
+        if (themeConfig.isDarkTheme) DarkColorScheme else LightColorScheme
     }
 
+    // 2. Harmonize: If a Brand Color is selected, systematically blend the base palette towards it
+    var colorScheme = if (brandColor != null) {
+        val brandColorInt = brandColor.toInt()
+        val blendAmount = if (themeConfig.isDarkTheme) 0.15f else 0.08f // Subtle surface harmonization
+        
+        baseScheme.copy(
+            primary = Color(brandColorInt),
+            primaryContainer = Color(androidx.core.graphics.ColorUtils.blendARGB(baseScheme.primaryContainer.toArgb(), brandColorInt, 0.4f)),
+            secondary = Color(androidx.core.graphics.ColorUtils.blendARGB(baseScheme.secondary.toArgb(), brandColorInt, 0.3f)),
+            secondaryContainer = Color(androidx.core.graphics.ColorUtils.blendARGB(baseScheme.secondaryContainer.toArgb(), brandColorInt, 0.2f)),
+            tertiary = Color(androidx.core.graphics.ColorUtils.blendARGB(baseScheme.tertiary.toArgb(), brandColorInt, 0.2f)),
+            surface = Color(androidx.core.graphics.ColorUtils.blendARGB(baseScheme.surface.toArgb(), brandColorInt, blendAmount)),
+            surfaceVariant = Color(androidx.core.graphics.ColorUtils.blendARGB(baseScheme.surfaceVariant.toArgb(), brandColorInt, blendAmount * 1.5f)),
+        )
+    } else {
+        baseScheme
+    }
+
+    // 3. Apply post-processing (True Black / High Contrast overlays)
     if (themeConfig.isTrueBlack && themeConfig.isDarkTheme) {
         colorScheme = applyTrueBlack(colorScheme)
     }

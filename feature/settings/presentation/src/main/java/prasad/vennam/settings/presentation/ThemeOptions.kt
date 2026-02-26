@@ -1,5 +1,8 @@
 package prasad.vennam.settings.presentation
 
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
+import prasad.vennam.design.theme.LocalThemeRegistry
 import prasad.vennam.model.ThemeAppIcon
 import prasad.vennam.model.ThemeColor
 import prasad.vennam.model.ThemeElevationStyle
@@ -9,10 +12,6 @@ import prasad.vennam.model.ThemeIconStyle
 import prasad.vennam.model.ThemeProfile
 import prasad.vennam.model.ThemeUiStyle
 import prasad.vennam.model.registry.ThemeRegistry
-
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
-import prasad.vennam.design.theme.LocalThemeRegistry
 
 @Composable
 fun rememberThemeOptions(registry: ThemeRegistry = LocalThemeRegistry.current): ThemeOptions {

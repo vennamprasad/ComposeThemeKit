@@ -39,6 +39,7 @@ datastore = "1.2.0"
 
 # Serialization
 kotlinxSerialization = "1.10.0"
+kotlinxCollectionsImmutable = "0.3.7"
 
 # WorkManager
 work = "2.11.1"
@@ -118,6 +119,7 @@ datastore-preferences = { module = "androidx.datastore:datastore-preferences", v
 
 # --- Serialization ---
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerialization" }
+kotlinx-collections-immutable = { module = "org.jetbrains.kotlinx:kotlinx-collections-immutable", version.ref = "kotlinxCollectionsImmutable" }
 
 # --- WorkManager ---
 work-runtime-ktx = { module = "androidx.work:work-runtime-ktx", version.ref = "work" }

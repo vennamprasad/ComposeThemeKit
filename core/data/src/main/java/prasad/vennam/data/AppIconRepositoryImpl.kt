@@ -23,7 +23,7 @@ class AppIconRepositoryImpl @Inject constructor(
         themeRegistry.appIcons.forEach { appIcon ->
             if (appIcon.id != targetIcon.id) {
                 packageManager.setComponentEnabledSetting(
-                    ComponentName(packageName, "$packageName.${appIcon.aliasName}"),
+                    ComponentName(packageName, "$packageName.${appIcon.activityAlias}"),
                     PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
                     PackageManager.DONT_KILL_APP
                 )
@@ -32,7 +32,7 @@ class AppIconRepositoryImpl @Inject constructor(
 
         // Enable selected icon
         packageManager.setComponentEnabledSetting(
-            ComponentName(packageName, "$packageName.${targetIcon.aliasName}"),
+            ComponentName(packageName, "$packageName.${targetIcon.activityAlias}"),
             PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
             PackageManager.DONT_KILL_APP
         )

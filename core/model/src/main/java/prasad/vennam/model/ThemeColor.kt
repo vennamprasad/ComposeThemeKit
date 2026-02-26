@@ -1,15 +1,17 @@
 package prasad.vennam.model
 
+import androidx.compose.runtime.Immutable
+
 /**
- * Defines a custom brand color that can be registered in [ThemeRegistry].
+ * Represents a brand color option available in the theme registry.
  *
  * @property id Unique identifier for the color (stored in [ThemeConfig]).
- * @property name Human-readable name shown in the UI.
- * @property colorValue The 32-bit ARGB color value (e.g., 0xFF... ). 
- *                     If null, the engine uses dynamic colors from the system wallpaper.
+ * @property name Human-readable name displayed in the settings UI.
+ * @property colorValue The physical color value as an ARGB Long (e.g., 0xFF0F52BA). Null means it relies on dynamic extraction.
  */
+@Immutable
 data class ThemeColor(
     val id: String,
     val name: String,
-    val colorValue: Long? = null
+    val colorValue: Long?
 )
