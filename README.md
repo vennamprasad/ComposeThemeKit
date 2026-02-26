@@ -71,22 +71,31 @@ dependencies {
 ## 🛠 Usage
 
 ### 1. Configure the Registry
-Inject your custom branding assets on application startup:
+Create a local registry instance and inject your custom branding assets:
 
 ```kotlin
-AuraComposeThemeKit.configure {
-    // Add a signature brand color
-    colors.add(ThemeColor(id = "neon", name = "Cyber Neon", colorValue = 0xFF00FF00))
+// 1. Instantiate the registry
+val themeRegistry = ThemeRegistry()
+
+// 2. Add a signature brand color
+themeRegistry.colors.add(ThemeColor(id = "neon", name = "Cyber Neon", colorValue = 0xFF00FF00))
     
-    // Register a custom font family
-    fonts.add(ThemeFont(id = "inter", name = "Inter", fontRes = R.font.inter))
+// 3. Register a custom font family
+themeRegistry.fonts.add(ThemeFont(id = "inter", name = "Inter", fontRes = R.font.inter))
     
-    // Create a curated custom skin
-    profiles.add(ThemeProfile(
-        id = "stealth",
-        name = "Stealth Mode",
-        config = ThemeConfig(isDarkTheme = true, isTrueBlack = true, brandColorId = "neon")
-    ))
+// 4. Create a curated custom skin
+themeRegistry.profiles.add(ThemeProfile(
+    id = "stealth",
+    name = "Stealth Mode",
+    config = ThemeConfig(isDarkTheme = true, isTrueBlack = true, brandColorId = "neon")
+))
+
+// 5. Wrap your app entry point and inject the registry
+ThemeKitTheme(
+    themeRegistry = themeRegistry,
+    themeConfig = currentConfig // Observe this from your ViewModel/DataStore
+) {
+    MyApp()
 }
 ```
 
