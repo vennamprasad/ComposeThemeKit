@@ -11,7 +11,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.platform.LocalContext
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.channels.BufferOverflow
+
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.consumeAsFlow
@@ -36,8 +36,7 @@ class HapticEngine(
     }
 
     private val clickChannel = Channel<Unit>(
-        capacity = Channel.CONFLATED,
-        onBufferOverflow = BufferOverflow.DROP_OLDEST
+        capacity = Channel.CONFLATED
     )
 
     init {
