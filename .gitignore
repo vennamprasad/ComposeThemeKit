@@ -1,0 +1,30 @@
+# Gradle files
+.gradle/
+**/build/
+
+# IDE files
+.idea/
+*.iml
+.kotlin/
+
+# Android Studio logs, caches, etc.
+captures/
+.externalNativeBuild/
+.cxx/
+local.properties
+
+# Secrets
+gradle.properties
+# (Keep gradle.properties if it only contains project configuration, 
+# but ignore it if it contains signing keys or JitPack tokens)
+
+# Build Logs
+build_app_log.txt
+build_design_log.txt
+build_error.txt
+
+# OS File
+.DS_Store
+
+# Output artifacts (videos, recordings, etc.)
+output/

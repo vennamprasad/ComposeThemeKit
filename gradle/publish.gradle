@@ -1,0 +1,14 @@
+apply plugin: 'maven-publish'
+
+afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                from components.release
+                groupId = 'com.github.prasadvennam' // Default jitpack groupId pattern
+                artifactId = project.name
+                version = '1.0.0'
+            }
+        }
+    }
+}
