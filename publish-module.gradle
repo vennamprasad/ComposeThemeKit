@@ -1,3 +1,11 @@
+/**
+ * publish-module.gradle
+ *
+ * Applied to all submodules via build.gradle.kts subprojects block.
+ * JitPack uses com.github.USERNAME as the groupId automatically —
+ * the groupId here is used for local Maven publishing only.
+ */
+
 pluginManager.withPlugin("com.android.library") {
     apply plugin: 'maven-publish'
 
@@ -13,12 +21,12 @@ pluginManager.withPlugin("com.android.library") {
     afterEvaluate {
         publishing {
             publications {
-                maven(MavenPublication) {
+                release(MavenPublication) {
                     from components.release
 
-                    groupId = 'com.github.vennamprasad'
-                    artifactId = 'ComposeThemeKit' + project.path.replace(':', '-')
-                    version = '1.0.0'
+                    groupId    = 'com.github.vennamprasad'
+                    artifactId = "ComposeThemeKit${project.path.replace(':', '-')}"
+                    version    = project.findProperty('VERSION_NAME') ?: '1.0.0'
                 }
             }
         }
@@ -39,12 +47,12 @@ def configureJavaPublishing() {
     afterEvaluate {
         publishing {
             publications {
-                maven(MavenPublication) {
+                release(MavenPublication) {
                     from components.java
 
-                    groupId = 'com.prasad.vennam.theme-kit'
-                    artifactId = 'theme-kit' + project.path.replace(':', '-')
-                    version = '1.0.1'
+                    groupId    = 'com.github.vennamprasad'
+                    artifactId = "ComposeThemeKit${project.path.replace(':', '-')}"
+                    version    = project.findProperty('VERSION_NAME') ?: '1.0.0'
                 }
             }
         }
