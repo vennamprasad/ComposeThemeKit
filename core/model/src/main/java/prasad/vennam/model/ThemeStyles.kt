@@ -17,5 +17,12 @@ data class ThemeHapticIntensity(
 @Immutable
 data class ThemeElevationStyle(
     val id: String,
-    val name: String
+    val name: String,
+    val type: ElevationType = ElevationType.MATERIAL
 )
+
+enum class ElevationType {
+    MATERIAL,
+    NEUMORPHIC_EXTRUDED,
+    NEUMORPHIC_PRESSED
+}

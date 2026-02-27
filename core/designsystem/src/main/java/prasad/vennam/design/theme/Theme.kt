@@ -29,6 +29,7 @@ import androidx.compose.ui.unit.dp
 import androidx.core.view.WindowCompat
 import prasad.vennam.model.ThemeConfig
 import prasad.vennam.model.registry.ThemeRegistry
+import prasad.vennam.model.ElevationType
 
 private const val ALPHA_PRIMARY_CONTAINER_DARK = 0.3f
 private const val ALPHA_PRIMARY_CONTAINER_LIGHT = 0.1f
@@ -287,18 +288,26 @@ private fun getAppDimensions(themeConfig: ThemeConfig): Dimensions {
 private fun getAppElevations(themeConfig: ThemeConfig): Elevations {
     return when (themeConfig.elevationStyleId) {
         "flat" -> Elevations(
+            type = ElevationType.MATERIAL,
             level0 = 0.dp, level1 = 0.dp, level2 = 0.dp, level3 = 0.dp, level4 = 0.dp, level5 = 0.dp
         )
         "high_contrast" -> Elevations(
+            type = ElevationType.MATERIAL,
             level0 = 0.dp, level1 = 4.dp, level2 = 8.dp, level3 = 12.dp, level4 = 16.dp, level5 = 24.dp
         )
+        "neumorphic" -> Elevations(
+            type = ElevationType.NEUMORPHIC_EXTRUDED,
+            level0 = 0.dp, level1 = 2.dp, level2 = 4.dp, level3 = 6.dp, level4 = 8.dp, level5 = 12.dp
+        )
         else -> Elevations(
+            type = ElevationType.MATERIAL,
             level0 = 0.dp, level1 = 1.dp, level2 = 3.dp, level3 = 6.dp, level4 = 8.dp, level5 = 12.dp
         )
     }
 }
 
 data class Elevations(
+    val type: ElevationType = ElevationType.MATERIAL,
     val level0: Dp = 0.dp,
     val level1: Dp = 1.dp,
     val level2: Dp = 3.dp,

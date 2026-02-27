@@ -86,9 +86,22 @@ class ThemeRegistry {
         
         elevationStyles.add(ThemeElevationStyle("flat", "Flat"))
         elevationStyles.add(ThemeElevationStyle("material", "Material"))
-        elevationStyles.add(ThemeElevationStyle("material", "Material"))
+        elevationStyles.add(ThemeElevationStyle("neumorphic", "Soft Neumorphism"))
         elevationStyles.add(ThemeElevationStyle("high_contrast", "High Contrast"))
 
+        profiles.add(
+            ThemeProfile(
+                id = "soft_neumorphism",
+                name = "Soft Neumorphism",
+                config = ThemeConfig(
+                    isDarkTheme = false,
+                    brandColorId = "emerald",
+                    uiStyleId = "extra_rounded",
+                    elevationStyleId = "neumorphic",
+                    hapticIntensityId = "light"
+                )
+            )
+        )
         profiles.add(
             ThemeProfile(
                 id = "sunset_orange",
