@@ -13,7 +13,6 @@ pluginManager.withPlugin("com.android.library") {
         publishing {
             singleVariant("release") {
                 withSourcesJar()
-                withJavadocJar()
             }
         }
     }
@@ -22,11 +21,11 @@ pluginManager.withPlugin("com.android.library") {
         publishing {
             publications {
                 release(MavenPublication) {
-                    from components.release
-
+                    from components.findByName("release") ?: components.getByName("default")
+                    
                     groupId    = 'com.github.vennamprasad'
                     artifactId = "ComposeThemeKit${project.path.replace(':', '-')}"
-                    version    = project.findProperty('VERSION_NAME') ?: '1.0.0'
+                    version    = project.findProperty('VERSION_NAME') ?: '1.0.0-SNAPSHOT'
                 }
             }
         }
