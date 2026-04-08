@@ -82,4 +82,8 @@ class ThemeRepositoryImpl @Inject constructor(
     override suspend fun applyProfile(config: ThemeConfig) {
         themePreferencesDataSource.updateConfig(config)
     }
+
+    override suspend fun resetToDefault() {
+        themePreferencesDataSource.updateConfig(ThemeConfig())
+    }
 }

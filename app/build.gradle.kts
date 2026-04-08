@@ -43,11 +43,8 @@ android {
 
 dependencies {
     implementation(project(":core:designsystem"))
-    implementation(project(":core:model"))
-    implementation(project(":core:domain"))
     implementation(project(":core:data"))
     implementation(project(":core:datastore"))
-    implementation(project(":feature:settings:presentation"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.lifecycle.runtime.ktx)

@@ -55,16 +55,16 @@ dependencyResolutionManagement {
 ```kotlin
 dependencies {
     // Core Engine and UI Components
-    implementation("com.github.vennamprasad.ComposeThemeKit:ComposeThemeKit-core-designsystem:1.0.5")
+    implementation("com.github.vennamprasad.ComposeThemeKit:ComposeThemeKit-core-designsystem:1.0.6")
     
     // The pre-built Settings UI Screen
-    implementation("com.github.vennamprasad.ComposeThemeKit:ComposeThemeKit-feature-settings-presentation:1.0.5")
+    implementation("com.github.vennamprasad.ComposeThemeKit:ComposeThemeKit-feature-settings-presentation:1.0.6")
 }
 ```
 
 > [!TIP]
 > **Models Only**: If you only need the data models and registry without the UI components:
-> `implementation("com.github.vennamprasad.ComposeThemeKit:ComposeThemeKit-core-model:1.0.5")`
+> `implementation("com.github.vennamprasad.ComposeThemeKit:ComposeThemeKit-core-model:1.0.6")`
 
 ---
 
