@@ -73,7 +73,7 @@ fun ThemeButton(
         
         Box(
             modifier = modifier
-                .neumorphicExtruded(offset = clickOffset)
+                .neumorphicExtruded(shape = shape, offset = clickOffset)
                 .clip(shape)
                 .background(backgroundColor)
                 .clickable(

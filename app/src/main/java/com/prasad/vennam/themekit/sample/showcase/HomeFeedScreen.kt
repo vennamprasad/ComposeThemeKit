@@ -54,6 +54,8 @@ import prasad.vennam.design.components.ThemeSnackbar
 import prasad.vennam.design.components.ThemeSwitch
 import prasad.vennam.design.components.getSnackbarContainerColor
 import prasad.vennam.design.components.getSnackbarContentColor
+import prasad.vennam.design.modifiers.glassMorphic
+import prasad.vennam.design.modifiers.neumorphicExtruded
 import prasad.vennam.design.theme.LocalAnimations
 import prasad.vennam.design.theme.LocalDimensions
 import prasad.vennam.design.theme.LocalIcons
@@ -126,6 +128,7 @@ fun HomeFeedScreen(
                     ThemeCard(
                         modifier = Modifier
                             .fillMaxWidth()
+                            .neumorphicExtruded()
                             .padding(vertical = dimensions.spacing.small)
                             .clickable {
                                 scope.launch { sheetState.hide() }.invokeOnCompletion {

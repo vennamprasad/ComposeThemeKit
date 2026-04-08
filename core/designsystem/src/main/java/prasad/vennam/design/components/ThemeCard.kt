@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Shape
+import prasad.vennam.design.modifiers.bounceClickable
 import prasad.vennam.design.modifiers.neumorphicExtruded
 import prasad.vennam.design.theme.LocalElevations
 import prasad.vennam.model.ElevationType
