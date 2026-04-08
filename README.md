@@ -1,6 +1,6 @@
 # 🎨 AuraComposeThemeKit: Modern Theming as a Service
 [![](https://jitpack.io/v/vennamprasad/ComposeThemeKit.svg)](https://jitpack.io/#vennamprasad/ComposeThemeKit)
-![Build Version](https://img.shields.io/badge/version-1.0.4-blue.svg)
+![Build Version](https://img.shields.io/badge/version-1.0.5-blue.svg)
 ![Jetpack Compose](https://img.shields.io/badge/Jetpack-Compose-4285F4.svg?logo=jetpackcompose)
 
 **AuraComposeThemeKit** is a professional-grade, modular theming engine for Android Jetpack Compose. Unlike traditional static themes, AuraComposeThemeKit acts as a pluggable service that gives you total control over **Colors**, **Typography**, **Geometry**, **Haptics**, and **Animations** with zero boilerplate.
@@ -55,16 +55,16 @@ dependencyResolutionManagement {
 ```kotlin
 dependencies {
     // Core Engine and UI Components
-    implementation("com.github.vennamprasad.ComposeThemeKit:ComposeThemeKit-core-designsystem:1.0.4")
+    implementation("com.github.vennamprasad.ComposeThemeKit:ComposeThemeKit-core-designsystem:1.0.5")
     
     // The pre-built Settings UI Screen
-    implementation("com.github.vennamprasad.ComposeThemeKit:ComposeThemeKit-feature-settings-presentation:1.0.4")
+    implementation("com.github.vennamprasad.ComposeThemeKit:ComposeThemeKit-feature-settings-presentation:1.0.5")
 }
 ```
 
 > [!TIP]
 > **Models Only**: If you only need the data models and registry without the UI components:
-> `implementation("com.github.vennamprasad.ComposeThemeKit:ComposeThemeKit-core-model:1.0.4")`
+> `implementation("com.github.vennamprasad.ComposeThemeKit:ComposeThemeKit-core-model:1.0.5")`
 
 ---
 
@@ -113,6 +113,22 @@ fun MyScreen() {
         ThemeLineChart(dataPoints = listOf(10f, 50f, 30f)) // Colors match your branding
     }
 }
+
+### 3. Premium Visual Modifiers
+The `core:designsystem` module includes bespoke Jetpack Compose modifiers for building premium UI experiences effortlessly:
+
+```kotlin
+// 1. Tactile shrink-and-spring bounce effects for buttons
+Modifier.bounceClickable { performAction() }
+
+// 2. High-performance shimmer animated skeletons
+Modifier.shimmerLoading(isLoading = true)
+
+// 3. Extruded Soft-UI Neumorphic effects
+Modifier.neumorphicExtruded()
+
+// 4. Frosted glass backgrounds with inner borders
+Modifier.glassMorphic()
 ```
 
 ---
