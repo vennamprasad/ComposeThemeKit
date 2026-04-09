@@ -61,14 +61,15 @@ fun Modifier.neumorphicExtruded(
     darkShadowColor: Color = Color.Black.copy(alpha = 0.15f),
     offset: Dp = 6.dp,
     blurRadius: Dp = 12.dp
-): Modifier = this.then(
-    Modifier.drawBehind {
+): Modifier = composed {
+    val paint = remember { Paint() }
+    
+    this.drawBehind {
         val offsetPx = offset.toPx()
         val blurPx = blurRadius.toPx()
         val outline = shape.createOutline(size, layoutDirection, this)
 
         drawIntoCanvas { canvas ->
-            val paint = Paint()
             val frameworkPaint = paint.asFrameworkPaint()
             
             // 1. Draw light shadow (highlight) on the top-left
@@ -91,7 +92,7 @@ fun Modifier.neumorphicExtruded(
             canvas.drawThemeOutline(outline, paint)
         }
     }
-)
+}
 
 /**
  * A highly requested tactical modifier that shrinks a button slightly on press and releases

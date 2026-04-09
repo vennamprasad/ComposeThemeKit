@@ -5,7 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
-import androidx.compose.runtime.remember
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.prasad.vennam.themekit.sample.showcase.MainScreen
 import dagger.hilt.android.AndroidEntryPoint
 import prasad.vennam.design.settings.SettingsViewModel
@@ -21,23 +21,14 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        
+        installSplashScreen().setKeepOnScreenCondition {
+            !viewModel.isReady.value
+        }
+        
         enableEdgeToEdge()
         setContent {
-            val myRegistry = remember {
-                ThemeRegistry().apply {
-                    colors.add(
-                        ThemeColor(
-                            id = "lava", name = "Lava Orange", colorValue = 0xFFFF4500
-                        )
-                    )
-                    colors.add(
-                        ThemeColor(
-                            id = "ocean", name = "Ocean Teal", colorValue = 0xFF008080
-                        )
-                    )
-                }
-            }
-            ThemeKitProvider(themeRegistry = myRegistry) {
+            ThemeKitProvider(viewModel = viewModel) {
                 MainScreen(
                     viewModel = viewModel, options = rememberThemeOptions()
                 )

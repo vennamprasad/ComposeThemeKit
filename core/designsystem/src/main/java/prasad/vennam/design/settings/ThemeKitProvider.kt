@@ -23,20 +23,30 @@ import prasad.vennam.model.registry.ThemeRegistry
  *
  * @param themeRegistry The list of available theme options (Colors, Fonts, etc.). 
  * @param viewModel The Hilt ViewModel managing the theme state.
+ * @param loadingContent The UI to display while the initial theme is being loaded from DataStore.
  * @param content The application UI that will be themed.
  */
 @Composable
 fun ThemeKitProvider(
-    themeRegistry: ThemeRegistry = remember { ThemeRegistry() },
+    themeRegistry: ThemeRegistry? = null,
     viewModel: SettingsViewModel = hiltViewModel(),
+    loadingContent: @Composable () -> Unit = {},
     content: @Composable () -> Unit
 ) {
-    val themeConfigState = viewModel.themeConfig.collectAsStateWithLifecycle()
-    val config = themeConfigState.value ?: ThemeConfig()
+    val actualRegistry = themeRegistry ?: remember { ThemeRegistry() }
+    val themeConfigState by viewModel.themeConfig.collectAsStateWithLifecycle()
+    val isReady by viewModel.isReady.collectAsStateWithLifecycle()
 
-    ThemeKitTheme(
-        themeRegistry = themeRegistry,
-        themeConfig = config,
-        content = content
-    )
+    if (isReady) {
+        // At this point, themeConfigState is guaranteed to be non-null 
+        // because isReady depends on the first emission.
+        val config = themeConfigState ?: ThemeConfig()
+        ThemeKitTheme(
+            themeRegistry = actualRegistry,
+            themeConfig = config,
+            content = content
+        )
+    } else {
+        loadingContent()
+    }
 }

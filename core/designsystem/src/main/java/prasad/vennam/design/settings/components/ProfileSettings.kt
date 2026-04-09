@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -17,11 +18,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import prasad.vennam.design.settings.SettingsViewModel
+import prasad.vennam.design.settings.ThemeOptions
 import prasad.vennam.design.theme.LocalDimensions
 import prasad.vennam.design.theme.LocalIcons
 import prasad.vennam.model.ThemeConfig
-import prasad.vennam.design.settings.SettingsViewModel
-import prasad.vennam.design.settings.ThemeOptions
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
@@ -53,7 +54,8 @@ fun ProfileSettings(
             )
             Spacer(modifier = Modifier.height(dimensions.spacing.small))
             
-            FlowRow(horizontalArrangement = Arrangement.spacedBy(dimensions.spacing.small)) {
+            FlowRow(modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(dimensions.spacing.small,)) {
                 options.availableProfiles.forEach { profile ->
                     val isSelected = config.isSameAs(profile.config)
                     FilterChip(
